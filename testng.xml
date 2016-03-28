@@ -1,0 +1,7 @@
+<suite name="ExtentReport" parallel="classes">
+    <test name="Run" preserve-order="true">
+        <packages>
+            <package name="tests" />
+        </packages>
+    </test>
+</suite>
