@@ -18,8 +18,7 @@ public class FinderImage {
     private Match match;
 
     public FinderImage(WebDriver driver, String pattern, Float similarity){
-        //System.load(new File(Utils.Constants.EXEC_PATH + "opencv_java2410.dll").getPath());
-        System.load(new File(System.getProperty("user.dir") + "/libs/opencv_java249.dll").getPath());
+        System.load(new File(System.getProperty("user.dir") + "/libs/opencv_java2410.dll").getPath());
         printTimeStamp("Start matching");
         match = getMatch(driver, pattern, similarity);
         printTimeStamp("Finish matching");
