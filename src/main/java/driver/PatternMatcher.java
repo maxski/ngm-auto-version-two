@@ -25,7 +25,6 @@ public class PatternMatcher {
     private List<TemplateMatcher.Result> matches;
 
     public PatternMatcher(WebDriver driver, String pattern, double similarity){
-        System.load(new File(System.getProperty("user.dir") + "/libs/opencv_java2410.dll").getPath());
         timeStamp("Start matching");
         matches = setMatches(driver, pattern, similarity);
         timeStamp("Finish matching");

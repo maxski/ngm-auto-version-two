@@ -28,8 +28,4 @@ public class CMD {
     public static void killChromedriver(){
         killProcess(Constants.CHROME_DRIVER_EXEC);
     }
-
-    public static void killSeleniumServer(){
-        killProcess(Constants.GRID_EXEC);
-    }
 }

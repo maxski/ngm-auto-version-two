@@ -16,7 +16,6 @@ public class FinderImage {
     private Match match;
 
     public FinderImage(WebDriver driver, String pattern, Float similarity){
-        System.load(new File(System.getProperty("user.dir") + "/libs/opencv_java2410.dll").getPath());
         timeStamp("Start matching");
         match = getMatch(driver, pattern, similarity);
         timeStamp("Finish matching");
@@ -31,10 +30,12 @@ public class FinderImage {
     }
 
     private Match getMatch(WebDriver driver, String pattern, Float similarity) {
-        timeStamp("Before screenshot");
         Match m = null;
-        ImageFinder imf = new ImageFinder(new Image(DriverUtils.getScreenshotImage(driver)));
+
+        timeStamp("Before screenshot");
+        Finder imf = new Finder(new Image(DriverUtils.getScreenshotImage(driver)));
         Instant before = timeStamp("After screenshot");
+
         try{
             imf.find(new Pattern(pattern).similar(similarity));
             Instant after = timeStamp("Image found");

@@ -13,7 +13,7 @@ import org.testng.annotations.Test;
  */
 public class ImageRecognitionTest extends BaseTest {
 
-    @Test (description = "Image Recognition via SikuliX Api")
+    @Test (description = "Image Recognition via SikuliX Api", priority = 1)
     public void sikulixApi() throws InterruptedException {
 
         getDriver().get("http://www.ukr.net");
@@ -26,7 +26,7 @@ public class ImageRecognitionTest extends BaseTest {
         }
     }
 
-    @Test (description = "Image Recognition via Sikuli Core")
+    @Test (description = "Image Recognition via Sikuli Core", priority = 2)
     public void sikuliCore() throws InterruptedException {
 
         getDriver().get("http://www.ukr.net");
