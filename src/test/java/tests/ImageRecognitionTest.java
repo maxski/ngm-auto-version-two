@@ -23,6 +23,7 @@ public class ImageRecognitionTest extends BaseTest {
             FinderImage finder = new FinderImage(getDriver(), Constants.EXEC_PATH + "target.png", 0.8f);
             System.out.println("Center: " + finder.getCenter());
             System.out.println("Similarity: " + finder.getSimilarity());
+            System.out.println("");
         }
     }
 
@@ -36,6 +37,7 @@ public class ImageRecognitionTest extends BaseTest {
             PatternMatcher matcher = new PatternMatcher(getDriver(), Constants.EXEC_PATH + "target.png", 0.8);
             System.out.println("Center: " + matcher.getCenter(0));
             System.out.println("Similarity: " + matcher.getSimilarity(0));
+            System.out.println("");
         }
     }
 
