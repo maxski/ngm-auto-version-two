@@ -2,11 +2,11 @@ package tests;
 
 import Utils.CMD;
 import Utils.Constants;
+import Utils.Misc;
 import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
 import driver.DriverUtils;
-import driver.Grid;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -28,11 +28,10 @@ public abstract class BaseTest {
     protected ExtentTest test;
     protected final String filePath = Constants.EXTENT_REPORT_PATH + Constants.EXTENT_REPORT_FILE;
 
-    //protected WebDriver getDriver(){
     protected WebDriver getDriver(){
         return this.driver;
     }
-    //protected void setDriver(WebDriver driver){
+
     protected void setDriver(String hubUrl){
         this.driver = DriverUtils.getDriver(hubUrl);
     }
@@ -69,7 +68,7 @@ public abstract class BaseTest {
             } catch (Exception e) {
                 e.printStackTrace();
             }*/
-            setDriver(Constants.GRID_DRIVER_HUB_URL);
+            setDriver(Constants.CHROME_DRIVER_URL);
         }
     }
 
@@ -83,11 +82,8 @@ public abstract class BaseTest {
 
     @BeforeSuite
     public void beforeSuite() {
-        Grid.startHub();
-        Grid.startNodes();
-        initReport();
-        setChromeDriverEnvVar();
-        //test = extent.startTest(getMethodName(result));
+        CMD.runCmd(Constants.EXEC_PATH + Constants.CHROME_DRIVER_EXEC);
+        Misc.sleep(5);
     }
 
     @BeforeClass
@@ -103,7 +99,6 @@ public abstract class BaseTest {
     @AfterSuite
     public void afterSuite() {
         getReport().close();
-        Grid.stopHubAndNodes();
         CMD.killChromedriver();
     }
 

@@ -1,15 +1,13 @@
 package driver;
 
-import Utils.*;
 import org.openqa.selenium.WebDriver;
 import org.sikuli.script.*;
 import org.sikuli.script.Image;
-import org.sikuli.libswin.Sikulix;
-import org.sikuli.libswin.*;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.sql.Timestamp;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 
 /**
  * Created by pc on 27.03.2016.
@@ -19,9 +17,9 @@ public class FinderImage {
 
     public FinderImage(WebDriver driver, String pattern, Float similarity){
         System.load(new File(System.getProperty("user.dir") + "/libs/opencv_java2410.dll").getPath());
-        printTimeStamp("Start matching");
+        timeStamp("Start matching");
         match = getMatch(driver, pattern, similarity);
-        printTimeStamp("Finish matching");
+        timeStamp("Finish matching");
     }
 
     public double getSimilarity(){
@@ -33,22 +31,24 @@ public class FinderImage {
     }
 
     private Match getMatch(WebDriver driver, String pattern, Float similarity) {
-        printTimeStamp("Before screenshot");
+        timeStamp("Before screenshot");
         Match m = null;
         ImageFinder imf = new ImageFinder(new Image(DriverUtils.getScreenshotImage(driver)));
-        printTimeStamp("After screenshot");
+        Instant before = timeStamp("After screenshot");
         try{
             imf.find(new Pattern(pattern).similar(similarity));
-            printTimeStamp("Image found");
+            Instant after = timeStamp("Image found");
+            System.out.println("Matching duration(ms): " + ChronoUnit.MILLIS.between(before, after));
             m = imf.next();
         }catch(Exception ex){
         }
         return m;
     }
 
-    private void printTimeStamp(String text){
-        java.util.Date date= new java.util.Date();
-        System.out.println("SIKULIX-API: "+ text + ": " + new Timestamp(date.getTime()));
+    private Instant timeStamp(String text){
+        Instant time = Instant.now();
+        System.out.println("SIKULIX-API: "+ text + ": " + time);
+        return time;
     }
 
 }

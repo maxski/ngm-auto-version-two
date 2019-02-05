@@ -6,8 +6,8 @@ import java.io.IOException;
  * Created by pc on 23.03.2016.
  */
 public class CMD {
+
     public static void runCmd(String cmd){
-        //String cmd = "taskkill /IM chromedriver.exe /F /T";
         try {
             Runtime.getRuntime().exec(cmd);
         } catch (IOException e) {

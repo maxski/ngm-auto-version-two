@@ -8,6 +8,7 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
@@ -33,8 +34,10 @@ public class DriverUtils {
         return driver;
     }
 
-    private static DesiredCapabilities getChromeCaps(){
-        return DesiredCapabilities.chrome();
+    private static ChromeOptions getChromeCaps(){
+        ChromeOptions options = new ChromeOptions();
+        options.setBinary(Constants.CHROME_BINARY);
+        return options;
     }
 
 

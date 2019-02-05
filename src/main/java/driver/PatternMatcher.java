@@ -13,6 +13,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.List;
 
@@ -23,9 +25,10 @@ public class PatternMatcher {
     private List<TemplateMatcher.Result> matches;
 
     public PatternMatcher(WebDriver driver, String pattern, double similarity){
-        printTimeStamp("Start matching");
+        System.load(new File(System.getProperty("user.dir") + "/libs/opencv_java2410.dll").getPath());
+        timeStamp("Start matching");
         matches = setMatches(driver, pattern, similarity);
-        printTimeStamp("Finish matching");
+        timeStamp("Finish matching");
     }
 
     public int getSize(){
@@ -50,18 +53,21 @@ public class PatternMatcher {
 
 
     private List<TemplateMatcher.Result> setMatches(WebDriver driver, String pattern, double similarity) {
-        printTimeStamp("Before screenshot");
+        timeStamp("Before screenshot");
         BufferedImage screenshotImg = DriverUtils.getScreenshotImage(driver);
-        printTimeStamp("After screenshot");
+        timeStamp("After screenshot");
         BufferedImage patternImg = Misc.getImage(pattern);
-        printTimeStamp("Get pattern");
-        return TemplateMatcher.
+        Instant before = timeStamp("Get pattern");
+        List<TemplateMatcher.Result> results = TemplateMatcher.
                 findMatchesByGrayscaleAtOriginalResolution(screenshotImg, patternImg, 1, similarity);
+        System.out.println("Matching duration(ms): " + ChronoUnit.MILLIS.between(before, Instant.now()));
+        return results;
     }
 
-    private void printTimeStamp(String text){
-        java.util.Date date= new java.util.Date();
-        System.out.println("SIKULI-CORE: "+ text + ": " + new Timestamp(date.getTime()));
+    private Instant timeStamp(String text){
+        Instant time = Instant.now();
+        System.out.println("SIKULI-CORE: "+ text + ": " + time);
+        return time;
     }
 
 
